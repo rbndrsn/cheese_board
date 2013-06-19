@@ -1,0 +1,36 @@
+<h2><%= @cheese.name %>  <a href="/" class="btn btn">back</a></h2>
+
+
+
+
+<div class="row">
+<div class="span3">
+
+  <% @cheese.ratings.each do | rating | %>
+  <dl class="<% if rating.user == current_user %>current<% end %>">
+    <dt><%= rating.user.first_name %> <%= rating.user.last_name %> rated this as <%= rating.star_rating %>/5 
+    </dt>
+  <dd>
+    <%= rating.text_rating %>
+  </dd>
+  <dd>
+    <strong>created on: <%= rating.created_at.strftime(" %d/%m/%Y") %></strong>
+  </dd>
+  </dl>
+<% end %> 
+
+</div>
+
+  <div class="span3">
+    <dl>
+    <dt>This cheese is from <%= @cheese.country.name %></dt>
+  </dl>
+      <div id="map-canvas" data-address="<%= @cheese.country.name %>">
+
+
+  </div>
+</div>
+
+    </div>
+   
+

@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="span7" id="filter-move">
+    <label>Filter</label>
+    <select class="span1 cheese-filters" id="filter_rating" name="filter_rating">
+      <option value="0">Stars</option>
+      <% (1..5).to_a.each do |i| %>
+        <% stars = if (@defaults[:stars].to_i == i) then " selected" else "" end %>
+        <option value="<%= i %>"<%= stars %>><%= pluralize(i, 'star') %></option>
+      <% end %>
+    </select>
+    <select class="span2 cheese-filters" id="filter_country" name="filter_country">
+      <option value="0">Country</option>
+      <% Country.all.each do |c| %>
+        <% country = if (@defaults[:country].to_i == c.id) then " selected" else "" end %>
+        <option value="<%= c.id %>"<%= country %>><%= c.name %></option>
+      <% end %>
+    </select>
+    <select class="span2 cheese-filters" id="filter_milktype" name="filter_milktype">
+      <option value="0">Milk type</option>
+      <% MilkType.all.each do |m| %>
+        <% milk_type = if (@defaults[:milk_type].to_i == m.id) then " selected" else "" end %>
+        <option value="<%= m.id %>"<%= milk_type %>><%= m.name %></option>
+      <% end %>
+    </select>
+    <select class="span2 cheese-filters" id="filter_texture" name="filter_texture">
+      <option value="0">Texture</option>
+      <% Texture.all.each do |t| %>
+        <% texture = if (@defaults[:texture].to_i == t.id) then " selected" else "" end %>
+        <option value="<%= t.id %>"<%= texture %>><%= t.texture %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="span2">
+  <!--   <select class="span2" id="cheese_sorter" name="cheese_sorter">
+      <option value="0">Order by</option>
+      <option value="star_rating">Star rating</option>
+      <option value="country">Country</option>
+      <option value="milk_type">Milk type</option>
+      <option value="texture">Texture</option> -->
+    </select>
+  </div>
+</div>
+
+
+  <div class="span9">
+    <ul class="thumbnails portfolio">
+      <% if @cheeses %>
+        <% @cheeses.each do |cheese| %>
+          <%
+            if current_user
+              rating = "#{cheese.ratings.find_by_user_id(current_user).star_rating} out of 5"
+            else
+              rating = "#{cheese.average_rating} out of 5"
+            end
+          %>
+          <li class="span3">
+            <a href="<%= cheese_show_url(cheese.id) %>">
+              <div class="thumbnail" style="height: 160px; overflow: hidden">
+                <%= image_tag cheese.image_url %>
+              </div>
+              <div style="height: 40px">
+                <strong><%= cheese.name %>:</strong>
+                <%= rating %><br>
+                <%= cheese.texture.texture %> <%= cheese.milk_type.name %>
+                milk from <%= cheese.country.name %>
+              </div>
+            </a>
+          </li>
+        <% end %>
+      <% else %>
+        No cheeses!
+      <% end %>
+    </ul>
+
+
+  </div>
+

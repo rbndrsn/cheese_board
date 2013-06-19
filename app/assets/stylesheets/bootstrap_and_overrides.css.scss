@@ -1,0 +1,24 @@
+@import "bootstrap";
+body { padding-top: 60px; }
+@import "bootstrap-responsive";
+
+.nav_no_link {
+  float: none;
+  padding: 10px 15px 10px;
+}
+
+
+#map-canvas {
+  width: 25em;
+  height: 25em;  
+}
+
+#filter-move {
+  padding-left: 30px;
+}
+
+label {
+  display: inline-block;
+  position: relative;
+  top: -4px;
+}
